@@ -2,45 +2,107 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detalles del Instrumento</title>
+    <title>Detalles</title>
     <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
 </head>
-<body>
-<div class="container mt-5">
+<body style="background-color: #f0f8f0; font-family: Arial, sans-serif;">
+
+<div class="container mt-4">
+
+    <!-- Navegación -->
+    <div class="mb-4">
+        <a th:href="@{/instrumentos}" class="btn btn-outline-dark">
+            ← VOLVER AL LISTADO
+        </a>
+    </div>
+
+    <!-- Tarjeta principal -->
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h1 class="card-title text-primary mb-4" th:text="${instrumento.nombre}">Nombre</h1>
+        <div class="col-md-8">
+            <div class="card shadow-lg" style="border: 2px solid #4a7c59;">
 
-                    <p class="fs-5">
-                        <span class="fw-bold">Fabricante:</span>
-                        <span th:text="${instrumento.fabricante}">Fabricante</span>
-                    </p>
-
-                    <p class="fs-5">
-                        <span class="fw-bold">Año de Fabricación:</span>
-                        <span th:text="${instrumento.anoFacbricacion}">2021</span>
-                    </p>
-
-                    <p class="fs-5">
-                        <span class="fw-bold">Precio:</span>
-                        <span th:text="${'$' + #numbers.formatDecimal(instrumento.precio, 1, 2)}">1499.50</span>
-                    </p>
-
-                    <hr class="my-4">
-
-                    <a th:href="@{/instrumentos/editar/{id}(id=${instrumento.id_instrumento})}"
-                       class="btn btn-primary btn-sm">Editar</a>
-
-                    <a th:href="@{/instrumentos/borrar/{id}(id=${instrumento.id_instrumento})}"
-                       class="btn btn-danger btn-sm"
-                       onclick="return confirm('¿Estás seguro de borrar este instrumento?')">Borrar</a>
+                <!-- Cabecera -->
+                <div class="card-header text-white text-center"
+                     style="background: linear-gradient(to right, #4a7c59, #2d5016);">
+                    <h3 class="mb-0">INFORMACIÓN DEL INSTRUMENTO</h3>
                 </div>
+
+                <!-- Cuerpo -->
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Columna izquierda -->
+                        <div class="col-md-6 border-end">
+                            <div class="mb-4">
+                                <h6 class="text-muted">IDENTIFICACIÓN</h6>
+                                <div class="p-3" style="background-color: #e8f5e8; border-radius: 5px;">
+                                    <h2 class="text-center text-dark"
+                                        th:text="${instrumento.id_instrumento}">1</h2>
+                                    <p class="text-center text-muted small">ID ÚNICO</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="text-muted">NOMBRE</h6>
+                                <h4 class="text-primary" th:text="${instrumento.nombre}">Nombre</h4>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="text-muted">FABRICANTE</h6>
+                                <span class="badge rounded-pill px-3 py-2"
+                                      style="background-color: #8fbc8f; color: #2d5016; font-size: 1rem;"
+                                      th:text="${instrumento.fabricante}">
+                                        Fabricante
+                                    </span>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha -->
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <h6 class="text-muted">AÑO DE FABRICACIÓN</h6>
+                                <div class="p-3 text-center"
+                                     style="background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px;">
+                                    <h3 th:text="${instrumento.anoFacbricacion}">2021</h3>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h6 class="text-muted">PRECIO</h6>
+                                <div class="p-4 text-center"
+                                     style="background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 5px;">
+                                    <h2 class="text-success mb-0">
+                                        $<span th:text="${#numbers.formatDecimal(instrumento.precio, 1, 2)}">1,499.50</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-2">
+                            <a th:href="@{/instrumentos/editar/{id}(id=${instrumento.id_instrumento})}"
+                               class="btn w-100 py-2"
+                               style="background-color: #ffc107; color: #000; font-weight: bold;">
+                                ✎ EDITAR INSTRUMENTO
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <a th:href="@{/instrumentos/borrar/{id}(id=${instrumento.id_instrumento})}"
+                               class="btn w-100 py-2"
+                               style="background-color: #dc3545; color: white; font-weight: bold;"
+                               onclick="return confirm('¿Está seguro de eliminar este instrumento?')">
+                                🗑 ELIMINAR INSTRUMENTO
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <p class="mt-3"><a th:href="@{/instrumentos}">Volver al listado</a></p>
         </div>
     </div>
+
 </div>
+
 </body>
 </html>

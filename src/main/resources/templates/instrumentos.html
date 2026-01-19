@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Instrumentos</title>
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Instrumentos</h1>
+
+    <h5 th:if="${instrumentos.size() > 0}">Catálogo de instrumentos musicales</h5>
+    <p th:unless="${instrumentos.size() > 0}">No hay instrumentos registrados en el sistema</p>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fabricante</th>
+            <th>Año</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="instrumento : ${instrumentos}">
+            <td th:text="${instrumento.id_instrumento}">1</td>
+            <td th:text="${instrumento.nombre}">Guitarra</td>
+            <td th:text="${instrumento.fabricante}">Fender</td>
+            <td th:text="${instrumento.anoFacbricacion}">2021</td>
+            <td th:text="${'$' + #numbers.formatDecimal(instrumento.precio, 1, 2)}">1499.50</td>
+            <td>
+                <a th:href="@{/instrumento/{id}(id=${instrumento.id_instrumento})}"
+                   class="btn btn-info btn-sm">Detalles</a>
+                <a th:href="@{/instrumentos/editar/{id}(id=${instrumento.id_instrumento})}"
+                   class="btn btn-info btn-sm">Editar</a>
+                <a th:href="@{/instrumentos/borrar/{id}(id=${instrumento.id_instrumento})}"
+                   class="btn btn-info btn-sm"
+                   onclick="return confirm('¿Estás seguro de borrar este instrumento?')">Borrar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/instrumentos/nuevo}" class="btn btn-primary mt-3">Agregar Nuevo Instrumento</a>
+</div>
+</body>
+</html>
